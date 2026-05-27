@@ -33,6 +33,7 @@ const StoreContextProvider = (props) => {
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
+        if (!cartItems) return 0;
         for (const item in cartItems) {
             try {
               if (cartItems[item] > 0) {
@@ -54,7 +55,7 @@ const StoreContextProvider = (props) => {
 
     const loadCartData = async (token) => {
         const response = await axios.post(url + "/api/cart/get", {}, { headers: token });
-        setCartItems(response.data.cartData);
+        setCartItems(response.data.cartData || {});
     }
 
     useEffect(() => {
